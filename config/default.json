@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://themordendata:themordendata@cluster0.lhmrg.mongodb.net/movies?retryWrites=true&w=majority"
+}
