@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import MoviesListComponent from "./components/MovieListComponent";
+import { getMovies } from "./api/index"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,40 +26,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getMovies = () => {
-  const promise = new Promise((resolve) => {
-    fetch("/api/movies")
-      .then((response) => {
-        return response.json();
-      })
-      .then((movies) => {
-        resolve(movies);
-      });
-  });
-  return promise;
-};
+// const getMovies = () => {
+//   const promise = new Promise((resolve) => {
+//     fetch("/api/movies")
+//       .then((response) => {
+//         return response.json();
+//       })
+//       .then((movies) => {
+//         resolve(movies);
+//       });
+//   });
+//   return promise;
+// };
 
-const App = () => {  
+const App = () => {
   const classes = useStyles();
   const [movies, setMovies] = React.useState([]);
   const [mode, setMode] = React.useState("movieList");
 
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
 
+  //have to done with saga
   React.useEffect(() => {
     getMovies().then((movies) => {
       setMovies(movies);
-    },(error)=>{console.log(error)});
+    }, (error) => { console.log(error) });
   }, []);
 
 
-  const onChangeMode = () =>{
+  const onChangeMode = () => {
     setMode("movieDetail");
   }
 
 
-  const applyFilter =(f)=>{
-   setMovies(f);
+  const applyFilter = (f) => {
+    setMovies(f);
   }
 
   const genres = [];
@@ -67,34 +69,34 @@ const App = () => {
   }
 
   return (
-  <>
+    <>
       {
-      mode==="movieList" && <Fragment>
-      <div style={{display: 'flex'}}>
-        <Typography variant="h2" style={{fontFamily: 'Calibri'}}>The Modern Data</Typography>
-         <span style={{marginLeft: 'auto',marginTop: '10px',marginRight: '10px'}}> 
-         {circle}
-        </span>
-      </div> 
-       <Divider />
-         <SortByGenreComponent  applyFilter={applyFilter} />
-      <Divider/> 
-         <MoviesListComponent  movies={movies} onChangeMode={onChangeMode} />
-         </Fragment>
-        }       
-</>  
+        mode === "movieList" && <Fragment>
+          <div style={{ display: 'flex' }}>
+            <Typography variant="h2" style={{ fontFamily: 'Calibri' }}>The Modern Data</Typography>
+            <span style={{ marginLeft: 'auto', marginTop: '10px', marginRight: '10px' }}>
+              {circle}
+            </span>
+          </div>
+          <Divider />
+          <SortByGenreComponent applyFilter={applyFilter} />
+          <Divider />
+          <MoviesListComponent movies={movies} onChangeMode={onChangeMode} />
+        </Fragment>
+      }
+    </>
   );
 };
 
-const SortByGenreComponent = withStyles(lookAndFeel)(({ classes, applyFilter }) => {  
+const SortByGenreComponent = withStyles(lookAndFeel)(({ classes, applyFilter }) => {
 
-  let genres = [] ;
-  const [amovies, setAMovies] = React.useState([]) ;
-  
+  let genres = [];
+  const [amovies, setAMovies] = React.useState([]);
+
   React.useEffect(() => {
     getMovies().then((movies) => {
-      setAMovies(movies) ;
-    },(error)=>{console.log(error)});
+      setAMovies(movies);
+    }, (error) => { console.log(error) });
   }, []);
 
   for (var i = 0; i < amovies.length; i++) {
@@ -102,20 +104,18 @@ const SortByGenreComponent = withStyles(lookAndFeel)(({ classes, applyFilter }) 
   }
 
   const moviesGenres = [...new Set(genres.flat(1))];
-  
+
   var sortedMovies = [];
-  
+
   const sortMovies = (ev) => {
     let genreName = ev.currentTarget.value;
-      for(var i=0;i<amovies.length;i++)
-      {
-        if(amovies[i].genres.includes(genreName))
-        {
-            sortedMovies.push(amovies[i]);
-        }
+    for (var i = 0; i < amovies.length; i++) {
+      if (amovies[i].genres.includes(genreName)) {
+        sortedMovies.push(amovies[i]);
       }
+    }
     applyFilter(sortedMovies);
-    };
+  };
 
   return (
     <>

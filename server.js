@@ -3,6 +3,7 @@ const app = express();
 const config = require('config');
 const mongoose = require("mongoose");
 const path = require('path');
+const bodyParser = require("body-parser");
 
 require('dotenv').config();
 const connectDB = require('./config/db');
@@ -10,13 +11,11 @@ connectDB();
 
 app.use(express.json({extended: false}));
 
-
 app.get("/",(req,res)=>{
     res.send("This is express");
 })
 
 app.use("/api/movies",require("./routes/api/movies"));
-app.use("/api/movie/:id",require("./routes/api/movies"));
 
 if(process.env.NODE_ENV === 'production')
 {

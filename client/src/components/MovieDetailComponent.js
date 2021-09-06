@@ -5,11 +5,39 @@ import {useStyles } from '../styles/styles';
 import { TextField } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
+
+
 const MovieDetailComponent = (props) => {
   const location = useLocation();
   const {movie} = location.state;
-    const classes = useStyles();
+  const classes = useStyles();
   
+  const [movieYear,setMovieYear] = React.useState();
+  const [movieImdb,setMovieImdb] = React.useState({});
+  const [movieCast,setMovieCast] = React.useState([]);
+  const [movieGenres,setMovieGenres] = React.useState([]);
+
+  const [data, setData] = React.useState({});
+
+ 
+  const updateMovie = ()=>{
+    fetch("/api/movies/updateMovie",
+    {
+      method: "POST",
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      }
+    ).then((response)=>{
+      console.log("Response",response);
+        return response.json();
+    }).then((movie)=>{
+            console.log(movie);
+          });
+  };
+
     var imdb = [];
     for(var o in movie.imdb) {
       imdb.push(movie.imdb[o]);
@@ -20,22 +48,47 @@ const MovieDetailComponent = (props) => {
       casts.push(movie.cast[c]);
     }
     
-    
-
     var genres=[];
     for(var g in movie.genres)
     {
       genres.push(movie.genres[g]);
     }
 
+    const year= movie.year.split("-");
 
+    const movieId = movie._id;
+    console.log(movieId);
+ 
     const onCastChangeHandler = (ev) =>{
-        let attr = ev.currentTarget;
-        let index = attr.getAttribute("id");
+        let index = ev.currentTarget.getAttribute("id");
+        setMovieCast(ev.currentTarget);
+        setData({
+          "id": movieId,
+          "cast": movieCast
+        });
+      }
+ 
+    
+    const onYearChangeHandler = (ev) =>{
+      setMovieYear(ev.currentTarget.value);
+      setData({
+        "id": movieId,
+        "year": movieYear
+      });
+      updateMovie();
+    }
+    
+    const onGenresChangeHandler = (ev) =>{
+      let idx = ev.currentTarget.getAttribute("id");
+      setMovieGenres(ev.currentTarget.value);
+      setData({
+        "id": movieId,
+        "genres": movieGenres
+      });
+      updateMovie();
     }
 
-    const year= movie.year.split("-");
-    
+
     return (
       <>
       <Fragment >
@@ -52,7 +105,7 @@ const MovieDetailComponent = (props) => {
           <Card.Text>{movie.fullplot}</Card.Text>
         
           <Card.Text><strong>Year : </strong> 
-          <TextField defaultValue={year[0]} color="secondary"  variant="outlined" size="small"></TextField></Card.Text>
+          <TextField defaultValue={year[0]} onChange = {onYearChangeHandler} color="secondary"  variant="outlined" size="small"></TextField></Card.Text>
           <Card.Text><b>IMDB Rating : </b>
            <TextField defaultValue={ imdb[0] } color="secondary"  variant="outlined" size="small" > </TextField> 
            </Card.Text>
@@ -69,7 +122,7 @@ const MovieDetailComponent = (props) => {
           {
           genres.map((genre)=>{
           return(
-            <TextField defaultValue={ genre }  key={genre} style={{margin: '10px' }} variant="outlined" size="small" inputProps={{style: { textAlign: 'center', cursor: 'none' }}}></TextField>
+            <TextField defaultValue={ genre }  onChange={onGenresChangeHandler} key={genre} style={{margin: '10px' }} variant="outlined" size="small" inputProps={{style: { textAlign: 'center', cursor: 'none' }}}></TextField>
             )
           })
           }
