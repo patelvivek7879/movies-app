@@ -22,6 +22,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "cd client && npm install && npm run build"
   },
+  "engines": {
+    "node": "v16.13.2"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
