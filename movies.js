@@ -1,4 +1,4 @@
-{
+const data = [{
   "_id": {
     "$oid": "573a1390f29313caabcd50e5"
   },
@@ -1700,7 +1700,7 @@
       "$numberInt": "5"
     }
   }
-}{
+},{
   "_id": {
     "$oid": "573a1392f29313caabcd980d"
   },
@@ -1981,4 +1981,6 @@
       }
     }
   }
-}
+}]
+
+module.exports = {data};

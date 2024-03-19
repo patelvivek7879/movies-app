@@ -1,3 +1,3 @@
 {
-    "mongoURI": "mongodb+srv://movies-app:movies-app@moviesapp0.hfnuev4.mongodb.net/?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://movies-app:movies-app@moviesapp0.hfnuev4.mongodb.net/?retryWrites=true&w=majority&appName=moviesApp0"
 }

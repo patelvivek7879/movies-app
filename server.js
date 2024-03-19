@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 require('dotenv').config();
 const connectDB = require('./config/db');
-connectDB();
+// connectDB();
 
 app.use(express.json({extended: false}));
 

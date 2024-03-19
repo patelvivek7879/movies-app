@@ -3,11 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 const Movie = require('../../models/Movie');
+const { getMovies } = require('../../readjsonfile');
 
 router.get("/", async (req, res) => {
     try {
-        const movies = await Movie.find().populate('movie', ["title"]);
-        console.log(movies.length);
+        // const movies = await Movie.find().populate('movie', ["title"]);
+        // console.log(movies.length);
+
+        const movies = await getMovies()
 
         res.json(movies);
 

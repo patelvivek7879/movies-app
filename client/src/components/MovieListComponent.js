@@ -22,9 +22,9 @@ const MoviesListComponent = ({ filter,movies}) => {
       <Fragment>
         <div className={classes.root}>
           <Grid container spacing={3}>
-            {movies.map((movie) => {
+            {movies?.map((movie) => {
               return (
-                <CardGroup key={movie.id} onClick={() => sendToMovie(movie)} className={classes.card}>
+                <CardGroup key={movie?.id} onClick={() => sendToMovie(movie)} className={classes.card}>
                   <Card
                     style={{ width: "18rem" }}
                     className="box"
@@ -49,9 +49,9 @@ const MoviesListComponent = ({ filter,movies}) => {
                       </h1>
                     )}
                     <Card.Body style={{height: '115px', marginTop: '10px'}}>
-                      <Card.Title>{movie.title} </Card.Title>
+                      <Card.Title>{movie?.title} </Card.Title>
                        <Card.Text>
-                        <b>IMDB Rating :</b> {movie.imdb.rating}
+                       <b>IMDB Rating :</b> {movie?.imdb?.rating?.["$numberDouble"]}
                       </Card.Text> 
                     </Card.Body>
                   </Card>

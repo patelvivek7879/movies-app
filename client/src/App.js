@@ -49,7 +49,7 @@ const App = () => {
   //have to done with saga
   React.useEffect(() => {
     getMovies().then((movies) => {
-      setMovies(movies);
+      setMovies(movies?.data);
     }, (error) => { console.log(error) });
   }, []);
 
@@ -73,7 +73,7 @@ const App = () => {
       {
         mode === "movieList" && <Fragment>
           <div style={{ display: 'flex' }}>
-            <Typography variant="h2" style={{ fontFamily: 'Calibri' }}>The Modern Data</Typography>
+            <Typography variant="h2" style={{ fontFamily: 'Calibri' }}>Movies Catalog</Typography>
             <span style={{ marginLeft: 'auto', marginTop: '10px', marginRight: '10px' }}>
               {circle}
             </span>
@@ -95,7 +95,7 @@ const SortByGenreComponent = withStyles(lookAndFeel)(({ classes, applyFilter }) 
 
   React.useEffect(() => {
     getMovies().then((movies) => {
-      setAMovies(movies);
+      setAMovies(movies.data);
     }, (error) => { console.log(error) });
   }, []);
 
@@ -117,13 +117,14 @@ const SortByGenreComponent = withStyles(lookAndFeel)(({ classes, applyFilter }) 
     applyFilter(sortedMovies);
   };
 
+
   return (
     <>
       <Typography style={{ textAlign: "center", marginTop: "15px", fontWeight: 'bold' }}>Sort By Genre</Typography>
       <div className={classes.mainContainer}>
         <Grid container spacing={4}>
           <Grid item>
-            {moviesGenres.map((genre, index) => {
+            {moviesGenres?.map((genre, index) => {
               return (
                 <Button
                   variant="contained"
