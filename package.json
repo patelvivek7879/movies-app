@@ -23,7 +23,7 @@
     "build": "cd client && npm install && npm run build"
   },
   "engines": {
-    "node": "v16.13.2"
+    "node": "v18.19.0"
   },
   "keywords": [],
   "author": "",
