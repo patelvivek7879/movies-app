@@ -24,7 +24,9 @@ const MoviesListComponent = ({ filter,movies}) => {
           <Grid container spacing={3}>
             {movies?.map((movie) => {
               return (
-                <CardGroup key={movie?.id} onClick={() => sendToMovie(movie)} className={classes.card}>
+                <CardGroup key={movie?.id} 
+                // onClick={() => sendToMovie(movie)} 
+                className={classes.card}>
                   <Card
                     style={{ width: "18rem" }}
                     className="box"
