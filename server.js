@@ -15,6 +15,8 @@ app.get("/",(req,res)=>{
     res.send("This is express");
 })
 
+app.use(express.static(path.resolve(__dirname, './client/build')));
+
 app.use("/api/movies",require("./routes/api/movies"));
 
 if(process.env.NODE_ENV === 'production')
