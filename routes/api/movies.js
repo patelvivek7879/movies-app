@@ -70,8 +70,4 @@ router.post("/updateMovie", async (req, res) => {
     }
 });
 
-router.post("/", (req, res) => {
-    res.send({ "status": "All Ok" })
-});
-
 module.exports = router;

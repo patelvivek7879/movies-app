@@ -11,10 +11,6 @@ const connectDB = require('./config/db');
 
 app.use(express.json({extended: false}));
 
-app.get("/",(req,res)=>{
-    res.send("This is express");
-})
-
 app.use(express.static(path.resolve(__dirname, './client/build')));
 
 app.use("/api/movies",require("./routes/api/movies"));
