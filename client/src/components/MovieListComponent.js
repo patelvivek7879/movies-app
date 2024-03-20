@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Card, CardGroup } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
 import { useStyles } from "../styles/styles";
 
 const MoviesListComponent = ({ filter, movies }) => {
   const classes = useStyles();
-  const history = useHistory();
 
   return (
     <Fragment>
