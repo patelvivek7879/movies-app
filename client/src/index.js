@@ -4,16 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MovieDetailComponent from './components/MovieDetailComponent';
 
 ReactDOM.render(
   <Router>
     <Switch>
       <Route exact path="/">
         <App />
-      </Route>
-      <Route exact path="/movie">
-        <MovieDetailComponent />
       </Route>
     </Switch>
   </Router>,
