@@ -20,7 +20,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd client && npm install && npm run build && cd .. && rm -rf public && mkdir public && cp -r client/build/* public"
   },
   "engines": {
     "node": "v18.19.0"
